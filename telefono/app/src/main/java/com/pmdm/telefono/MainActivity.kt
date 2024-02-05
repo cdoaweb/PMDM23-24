@@ -11,36 +11,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.pmdm.telefono.ui.theme.TelefonoTheme
+MainActivity.kt
 
-class MainActivity : ComponentActivity() {
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            TelefonoTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        setContentView(R.layout.activity_main)
+
+        buttonActivityOne.setOnClickListener {
+            val intent = Intent(this, FirstActivity::class.java)
+            intent.putExtra("name", "Carlos Daniel Apellidos")
+            startActivity(intent)
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TelefonoTheme {
-        Greeting("Android")
+        buttonActivityTwo.setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtra("phone", "953-222-222")
+            startActivity(intent)
+        }
     }
 }
