@@ -11,14 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pmdm.lista_de_pelculas.ui.theme.Lista_de_películasTheme
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : ComponentActivity() {
     private lateinit var moviesRecyclerView: RecyclerView
-        private lateinit var moviesAdapter: MoviesAdapter
-    private lateinit var moviesList: List<Movie>
+    private lateinit var moviesAdapter: MoviesAdapter
     private var moviesList = mutableListOf<Movie>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,20 +27,17 @@ class MainActivity : ComponentActivity() {
             //objetos Movie
             Movie("Título 1", 2021, "Descripción 1", "URL de la imagen 1"),
             Movie("Título 2", 2022, "Descripción 2", "URL de la imagen 2")
-        )
+        ).toMutableList()
 
         moviesRecyclerView = findViewById(R.id.moviesRecyclerView)
         moviesRecyclerView.layoutManager = LinearLayoutManager(this)
-        moviesAdapter = MoviesAdapter(moviesList)
+        moviesAdapter = MoviesAdapter(moviesList, { position ->
+            moviesList.removeAt(position)
+        })
         moviesRecyclerView.adapter = moviesAdapter
 
         moviesList.forEach {
             Log.d("MovieApp", "Película: ${it.title}, Año: ${it.year}")
         }
-    }
-    moviesAdapter.removeAt(position)
-        }
-
-        recyclerView.adapter = moviesAdapter
     }
 }
